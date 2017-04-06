@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="">
-    <title>Robert's Blog Centralizer</title>
+    <title>RSS Feed Centralizer</title>
 	<link rel="stylesheet" href="./css/bootstrap.min.css" />
 	<link rel="stylesheet" href="./css/bootstrap-theme.min.css" />
 	<script type="text/javascript" src="./js/jquery.min.js"></script>
