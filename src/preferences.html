@@ -15,7 +15,7 @@
     <script src="./js/scripts.js"></script>
 </head>
 
-<body onload="readFeeds()">
+<body  onload="generatePreferenceBlogs()">
 <nav class="navbar navbar-inverse navbar-fixed-top" id="nav">
     <div class="container">
         <div class="navbar-header">
@@ -53,16 +53,19 @@
         Custom Blog/Podcast Feeds (Must be in the form of http://{website}/feed)
     </h2>
     <div>
-        Add a new item: <input type="text" class="input-sm" /><input type="submit" value="Add" />
+        Add a new item: <input type="text" class="input-sm" /><input type="submit" id="submitUrl" value="Add" class="btn btn-info" />
     </div>
     <br />
-    <table class="table table-hover table-bordered table-responsive">
-        <th>Feed URL</th>
-    </table>
+    <div id="blogTable"></div>
     <hr />
     <footer id="footer">
         <p>&copy; 2017 - Robert McCoy</p>
     </footer>
 </div>
 </body>
+<script>
+    $(document).ready(function() {
+
+    })
+</script>
 </html>

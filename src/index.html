@@ -61,7 +61,8 @@
         <br />
         <label><input type="checkbox" id="technologyCheckbox" />Technology/Software</label>
         <br />
-        <input type="submit" value="Save" onclick="UpdatePresets()" />
+        <input type="submit" id="saveNewBlogs" value="Save" />
+        <div id="result"></div>
     </div>
     <hr />
     <footer id="footer">
@@ -69,4 +70,43 @@
     </footer>
 </div>
 </body>
+<script>
+    $(document).ready(function() {
+        var blogList = [];
+        $('#saveNewBlogs').click(function() {
+            $('#result').text("");
+            var anythingSelected = false;
+            if ($('#businessCheckbox').prop('checked')) {
+                anythingSelected = true;
+                Array.prototype.push.apply(blogList, ['http://chrisbrogan.com/feed/', 'http://feeds.feedburner.com/smartpassiveincome?format=xml', 'https://www.garyvaynerchuk.com/feed/', 'http://www.amyporterfield.com/feed/', 'http://feeds.feedblitz.com/entrepreneuronfirefeed&x=1']);
+            }
+            if ($('#financeCheckbox').prop('checked')) {
+                anythingSelected = true;
+                Array.prototype.push.apply(blogList, ['http://feeds.feedburner.com/businessinsider?format=xml', 'http://econbrowser.com/feed', 'http://www.nakedcapitalism.com/feed', 'http://feeds.reuters.com/news/wealth?format=xml']);
+            }
+            if ($('#hardwareCheckbox').prop('checked')) {
+                anythingSelected = true;
+                Array.prototype.push.apply(blogList, ['https://blog.bolt.io/feed?format=xml', 'http://predictabledesigns.com/teblog/feed/', 'http://blog.dragoninnovation.com/feed/', 'https://blog.upverter.com/feed/']);
+            }
+            if ($('#managementCheckbox').prop('checked')) {
+                anythingSelected = true;
+                Array.prototype.push.apply(blogList, ['https://www.wrike.com/blog/feed/', 'http://feeds.feedburner.com/allthingsworkplace?format=xml', 'http://feeds.feedburner.com/pmhut?format=xml']);
+            }
+            if ($('#programmingCheckbox').prop('checked')) {
+                anythingSelected = true;
+                Array.prototype.push.apply(blogList, ['https://www.alvinashcraft.com/feed/', 'https://visualstudiomagazine.com/rss-feeds/news.aspx', 'https://visualstudiomagazine.com/rss-feeds/practical-net.aspx', 'https://davidwalsh.name/feed']);
+            }
+            if ($('#technology').prop('checked')) {
+                anythingSelected = true;
+                Array.prototype.push.apply(blogList, ['https://blog.codinghorror.com/rss/', 'http://feeds.feedburner.com/TroyHunt?format=xml']);
+            }
+            if (!anythingSelected) {
+                $('#result').text("You must select at least one blog preset, or add one through the settings.");
+                return;
+            }
+            localStorage.setItem('blogs', JSON.stringify(blogList));
+            location.href = 'blogs.html';
+        });
+    });
+</script>
 </html>
