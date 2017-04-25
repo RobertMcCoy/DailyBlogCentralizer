@@ -10,7 +10,9 @@ function readFeeds() {
                 data: {
                     rss_url: element,
                     api_key: apiKey,
-                    count: 5
+                    count: 5,
+                    order_by: 'pubDate',
+                    order_dir: 'desc'
                 }
             }).done(function (response) {
                 if (response.status != 'ok') {
@@ -20,7 +22,43 @@ function readFeeds() {
                 var newDiv = document.createElement('div');
                 document.getElementById('tables').appendChild(newDiv);
                 newDiv.id = 'div' + replaceAll(response.feed.title, " ", "")
-                newDiv.innerHTML = '<h1>' + response.feed.title + '</h1><h4>' + response.feed.description + ' </h4><br/>' +
+                newDiv.innerHTML = '<h1>' + response.feed.title + '</h1><p><a href="' + response.feed.link +'">' + response.feed.link + '</a></p><h4>' + response.feed.description + ' </h4><br/>' +
+                    '<table class="table table-hover table-bordered table-striped">' +
+                    '<tr>' +
+                    '<th>Title</th>' +
+                    '<th>Published</th>' +
+                    '<th>Author</th>' +
+                    '</tr>' +
+                    tableRows +
+                    '</table>';
+            });
+        });
+    }
+}
+
+function readPodcasts() {
+    if (localStorage.getItem('podcasts') !== null && localStorage.getItem('podcasts').length !== 0) {
+        JSON.parse(localStorage.getItem('podcasts')).forEach(function (element) {
+            $.ajax({
+                url: 'https://api.rss2json.com/v1/api.json',
+                method: 'GET',
+                dataType: 'json',
+                data: {
+                    rss_url: element,
+                    api_key: apiKey,
+                    count: 5,
+                    order_by: 'pubDate',
+                    order_dir: 'desc'
+                }
+            }).done(function (response) {
+                if (response.status != 'ok') {
+                    throw response.message;
+                }
+                var tableRows = generateTableRows(response);
+                var newDiv = document.createElement('div');
+                document.getElementById('tables').appendChild(newDiv);
+                newDiv.id = 'div' + replaceAll(response.feed.title, " ", "")
+                newDiv.innerHTML = '<h1>' + response.feed.title + '</h1><p><a href="' + response.feed.link +'">' + response.feed.link + '</a></p><h4>' + response.feed.description + ' </h4><br/>' +
                     '<table class="table table-hover table-bordered table-striped">' +
                     '<tr>' +
                     '<th>Title</th>' +
@@ -62,7 +100,7 @@ function generateTableRows(response) {
 	response.items.forEach(function(element) {
 		var date = new Date(element.pubDate);
 		rows += '<tr>' +
-					'<td><a href="' + element.link + '">' + element.title + '</a></td>' +
+					'<td><a href="' + element.link + '" target="_blank">' + element.title + '</a></td>' +
 					'<td>' + (('0' + (date.getMonth() + 1)).slice(-2)) + '/' + ('0' + date.getDate()).slice(-2) + '/' + date.getFullYear() + ' ' + ((date.getHours() + 11) % 12 + 1) + ':' + ('0' + date.getMinutes()).slice(-2) + (date.getHours() > 12 ? ' PM' : ' AM' ) + '</td>' +
 					'<td>' + element.author + '</td>' +
 				'</tr>';

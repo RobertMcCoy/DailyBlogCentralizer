@@ -105,6 +105,7 @@
                 return;
             }
             localStorage.setItem('blogs', JSON.stringify(blogList));
+            localStorage.setItem('podcasts', JSON.stringify(['http://feeds.podtrac.com/P-4IIgRqsKI_','http://softwareengineeringdaily.com/feed/podcast','http://feeds.feedburner.com/ProgrammingThrowdown?format=xml']));
             location.href = 'blogs.html';
         });
     });
