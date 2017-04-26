@@ -99,13 +99,34 @@ function generateTableRows(response) {
 	var rows = "";
 	response.items.forEach(function(element) {
 		var date = new Date(element.pubDate);
-		rows += '<tr>' +
-					'<td><a href="' + element.link + '" target="_blank">' + element.title + '</a></td>' +
-					'<td>' + (('0' + (date.getMonth() + 1)).slice(-2)) + '/' + ('0' + date.getDate()).slice(-2) + '/' + date.getFullYear() + ' ' + ((date.getHours() + 11) % 12 + 1) + ':' + ('0' + date.getMinutes()).slice(-2) + (date.getHours() > 12 ? ' PM' : ' AM' ) + '</td>' +
-					'<td>' + element.author + '</td>' +
-				'</tr>';
+		if (isLinkViewed(element.link)) {
+            rows += '<tr style="background-color: #EEF3E2">' +
+                '<td><a href="' + element.link + '" target="_blank">' + element.title + '</a></td>' +
+                '<td>' + (('0' + (date.getMonth() + 1)).slice(-2)) + '/' + ('0' + date.getDate()).slice(-2) + '/' + date.getFullYear() + ' ' + ((date.getHours() + 11) % 12 + 1) + ':' + ('0' + date.getMinutes()).slice(-2) + (date.getHours() > 12 ? ' PM' : ' AM' ) + '</td>' +
+                '<td>' + element.author + '</td>' +
+                '</tr>';
+        }
+        else {
+            rows += '<tr style="background-color: #FEE0C6">' +
+                '<td><a href="' + element.link + '" target="_blank" onclick="linkViewed(\'' + element.link + '\');">' + element.title + '</a></td>' +
+                '<td>' + (('0' + (date.getMonth() + 1)).slice(-2)) + '/' + ('0' + date.getDate()).slice(-2) + '/' + date.getFullYear() + ' ' + ((date.getHours() + 11) % 12 + 1) + ':' + ('0' + date.getMinutes()).slice(-2) + (date.getHours() > 12 ? ' PM' : ' AM' ) + '</td>' +
+                '<td>' + element.author + '</td>' +
+                '</tr>';
+        }
 	});
 	return rows;
+}
+
+function linkViewed(link) {
+    console.log("setting link to viewed: " + link);
+    localStorage.setItem(link, true);
+}
+
+function isLinkViewed(link) {
+    if (localStorage.getItem(link)) {
+        return true;
+    }
+    return false;
 }
 
 function replaceAll(str, find, replace) {
