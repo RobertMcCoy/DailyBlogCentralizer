@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="">
+    <title>RSS Feed Centralizer</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/bootstrap-theme.min.css" />
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <script src="./js/config.js"></script>
+    <script src="./js/scripts.js"></script>
+</head>
+
+<body  onload="generatePreferenceBlogs()">
+<nav class="navbar navbar-inverse navbar-fixed-top" id="nav">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="./index.html" class="navbar-brand">RSS Center</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./blogs.html">Blogs</a></li>
+                <li><a href="./podcasts.html">Podcasts</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="./preferences.html">Preferences</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container body-content">
+    <br />
+    <br />
+    <br />
+    <h1>General Preferences</h1>
+    <input type="checkbox" id="colorSeen">Color code blogs if they have appeared on my page before?</input>
+    <br />
+    <br />
+    <input type="submit" value="Save" id="savePreferences" onclick="savePreferences()" class="btn btn-info"/>
+    <br />
+    <br />
+    <h2>
+        Custom Blog Feeds
+    </h2>
+    <div>
+        Add a new item: <input type="text" id="newItemTxt" class="input-sm" /><input type="submit" id="submitUrl" value="Add" onclick="addNewFeed();" class="btn btn-info" />
+    </div>
+    <div id="resultsDiv"></div>
+    <br />
+    <div id="blogTable"></div>
+    <h2>
+        Custom Podcast Feeds
+    </h2>
+    <div>
+        Add a new item: <input type="text" id="newItemPodcast" class="input-sm" /><input type="submit" id="submitUrlPodcast" value="Add" onclick="addNewPodcast();" class="btn btn-info" />
+    </div>
+    <div id="resultsPodcastDiv"></div>
+    <br />
+    <div id="podcastTable"></div>
+    <hr />
+    <footer id="footer">
+        <p>&copy; 2017 - Robert McCoy</p>
+    </footer>
+</div>
+</body>
+<script>
+    $(document).ready(function() {
+        if (localStorage.getItem('colorCode') === "true") {
+            $('#colorSeen').attr('checked','checked');
+        }
+    })
+</script>
+</html>
