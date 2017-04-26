@@ -46,17 +46,28 @@
     <h1>General Preferences</h1>
     <input type="checkbox" id="colorSeen">Color code blogs if they have appeared on my page before?</input>
     <br />
-    <input type="checkbox" id="savePrefs" checked>Save Preferences?</input>
+    <br />
+    <input type="submit" value="Save" id="savePreferences" onclick="savePreferences()" class="btn btn-info"/>
     <br />
     <br />
     <h2>
-        Custom Blog/Podcast Feeds (Must be in the form of http://{website}/feed)
+        Custom Blog Feeds
     </h2>
     <div>
-        Add a new item: <input type="text" class="input-sm" /><input type="submit" id="submitUrl" value="Add" class="btn btn-info" />
+        Add a new item: <input type="text" id="newItemTxt" class="input-sm" /><input type="submit" id="submitUrl" value="Add" onclick="addNewFeed();" class="btn btn-info" />
     </div>
+    <div id="resultsDiv"></div>
     <br />
     <div id="blogTable"></div>
+    <h2>
+        Custom Podcast Feeds
+    </h2>
+    <div>
+        Add a new item: <input type="text" id="newItemPodcast" class="input-sm" /><input type="submit" id="submitUrlPodcast" value="Add" onclick="addNewPodcast();" class="btn btn-info" />
+    </div>
+    <div id="resultsPodcastDiv"></div>
+    <br />
+    <div id="podcastTable"></div>
     <hr />
     <footer id="footer">
         <p>&copy; 2017 - Robert McCoy</p>
@@ -65,7 +76,9 @@
 </body>
 <script>
     $(document).ready(function() {
-
+        if (localStorage.getItem('colorCode') === "true") {
+            $('#colorSeen').attr('checked','checked');
+        }
     })
 </script>
 </html>

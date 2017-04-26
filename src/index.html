@@ -15,7 +15,7 @@
     <script src="./js/scripts.js"></script>
 </head>
 
-<body onload="readFeeds()">
+<body>
 <nav class="navbar navbar-inverse navbar-fixed-top" id="nav">
     <div class="container">
         <div class="navbar-header">
@@ -72,6 +72,9 @@
 </body>
 <script>
     $(document).ready(function() {
+        if (localStorage.getItem('colorCode') === null) {
+            localStorage.setItem('colorCode', true);
+        }
         var blogList = [];
         $('#saveNewBlogs').click(function() {
             $('#result').text("");
